@@ -1,4 +1,5 @@
 import os
+import numpy as np
 import scipy.stats
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,17 +11,23 @@ df = pd.read_csv('DevMIND_Flanker_Hormone_Preprocessing_v3.csv')
 df = df[df['Excluded'] == 'N']
 df = df[df['T_mean'] > 0]
 
-age_testosterone = scipy.stats.pearsonr(df['age'], df['T_mean'])
+age_testosterone = scipy.stats.pearsonr(df['T_mean'], df['age'])
+
+m, b = np.polyfit(df['T_mean'], df['age'], 1)
 
 plt.figure()
 plt.scatter(df['T_mean'], df['age'])
+plt.plot(df['T_mean'], m*df['T_mean']+b)
 plt.show()
 
 df['RT_avg'] = (df['Total_Control']*df['RT_Control'] + df['Total_Flanker']*df['RT_Flanker'])/(df['Total_Control'] + df['Total_Flanker'])
 
 testosterone_behavior = scipy.stats.pearsonr(df['RT_avg'], df['T_mean'])
 
+m, b = np.polyfit(df['T_mean'], df['RT_avg'], 1)
+
 plt.figure()
 plt.scatter(df['T_mean'], df['RT_avg'])
+plt.plot(df['T_mean'], m*df['T_mean']+b)
 plt.show()
 
