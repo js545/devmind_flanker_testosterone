@@ -112,6 +112,8 @@ plt.show()
 ########################################################################################################################
 # Alpha Testosterone Correlation
 
+# Redid correlation with log of T, T is normally distributed so does not need to be changed
+
 
 ########################################################################################################################
 # Gamma Testosterone Correlation
